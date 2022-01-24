@@ -76,6 +76,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    //  RNG
+    juce::Random r;
+    
     //  Wind Methods
     void dstPrepare(const juce::dsp::ProcessSpec& spec);
     void dstProcess(juce::AudioBuffer<float>& buffer);
@@ -90,10 +93,6 @@ private:
     juce::AudioParameterFloat* dstAmplitude;
     
     //  Distant Wind DSP Resources
-    juce::dsp::Oscillator<float> dstNoise1
-    {[] (float x)
-        { juce::Random r; return r.nextFloat() * 2.0f - 1.0f; }
-    };
     
     juce::dsp::StateVariableTPTFilter<float> dstBPF;
     

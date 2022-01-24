@@ -48,6 +48,9 @@ Wind4Unity1AudioProcessor::Wind4Unity1AudioProcessor()
                         "DstQ", "DistantQ", 1.0f, 100.0f, 10.0f));
     addParameter(dstAmplitude = new juce::AudioParameterFloat(
                         "DstAmp", "DistantAmpltd", 0.0001f, 1.5f, 0.75f));
+    
+    //  Seed RNG
+    r.setSeedRandomly();
 }
 
 Wind4Unity1AudioProcessor::~Wind4Unity1AudioProcessor()
@@ -203,9 +206,6 @@ void Wind4Unity1AudioProcessor::setStateInformation (const void* data, int sizeI
 
 void Wind4Unity1AudioProcessor::dstPrepare(const juce::dsp::ProcessSpec &spec)
 {
-    //    Prepare Noise Source
-    dstNoise1.prepare(spec);
-    
     //    Prepare Filter
     dstBPF.prepare(spec);
     dstBPF.setType(juce::dsp::StateVariableTPTFilterType::bandpass);
@@ -226,7 +226,7 @@ void Wind4Unity1AudioProcessor::dstProcess(juce::AudioBuffer<float> &buffer)
     {
         for (int s = 0; s < numSamples; ++s)
         {
-            float output = dstBPF.processSample(ch, dstNoise1.processSample(0.0f));
+            float output = r.nextFloat() * 2.0f - 1.0f;
             buffer.addSample(ch, s, output * dstFrameAmp);
         }
     }
