@@ -227,6 +227,7 @@ void Wind4Unity1AudioProcessor::dstProcess(juce::AudioBuffer<float> &buffer)
         for (int s = 0; s < numSamples; ++s)
         {
             float output = r.nextFloat() * 2.0f - 1.0f;
+            output = dstBPF.processSample(ch, output);
             buffer.addSample(ch, s, output * dstFrameAmp);
         }
     }
