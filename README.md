@@ -1,5 +1,7 @@
 # Wind4Unity1
  First Unity Plugin Tutorial - Distant Wind
+ Link to Youtube Video Tutorials
+ https://www.youtube.com/channel/UCmoHB7fvFw9SWfXdKZfaBGw
 
  # Installing JUCE
  Either Download from the JUCE website
